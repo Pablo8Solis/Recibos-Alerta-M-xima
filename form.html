@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Nuevo Recibo — Alerta Máxima</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul: #1a2456;
+    --azul-claro: #2d3d8f;
+    --dorado: #c8a84b;
+    --gris: #f4f5f8;
+    --texto: #1a1a2e;
+    --sombra: 0 4px 20px rgba(26,36,86,0.15);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--gris);
+    color: var(--texto);
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--azul);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+  header img { height: 44px; }
+  header .titulo { color: white; }
+  header .titulo h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+  header .titulo p {
+    font-size: 0.7rem;
+    color: var(--dorado);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .contenedor {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 20px 16px 100px;
+  }
+
+  .seccion {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--sombra);
+  }
+
+  .seccion-titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    color: var(--azul);
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--dorado);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .seccion-titulo span { font-size: 1.2rem; }
+
+  .campo {
+    margin-bottom: 14px;
+  }
+  .campo label {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--azul);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .campo input, .campo select, .campo textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid #e0e4ef;
+    border-radius: 10px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 1rem;
+    color: var(--texto);
+    background: #fafbff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    -webkit-appearance: none;
+  }
+  .campo input:focus, .campo select:focus, .campo textarea:focus {
+    outline: none;
+    border-color: var(--azul-claro);
+    box-shadow: 0 0 0 3px rgba(45,61,143,0.12);
+    background: white;
+  }
+
+  .fila-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .fila-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+  }
+
+  .total-box {
+    background: var(--azul);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+  }
+  .total-box .etiqueta {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .total-box .monto {
+    color: var(--dorado);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+  }
+
+  .btn-generar {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 32px);
+    max-width: 528px;
+    background: var(--dorado);
+    color: var(--azul);
+    border: none;
+    border-radius: 14px;
+    padding: 18px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 3px;
+    cursor: pointer;
+    box-shadow: 0 6px 24px rgba(200,168,75,0.4);
+    transition: transform 0.15s, box-shadow 0.15s;
+    z-index: 200;
+  }
+  .btn-generar:active {
+    transform: translateX(-50%) scale(0.97);
+    box-shadow: 0 3px 12px rgba(200,168,75,0.3);
+  }
+
+  .nota {
+    font-size: 0.75rem;
+    color: #888;
+    text-align: center;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="img/logo.png" alt="Alerta Máxima" onerror="this.style.display='none'">
+  <div class="titulo">
+    <h1>Alerta Máxima</h1>
+    <p>Nuevo Recibo de Servicio</p>
+  </div>
+</header>
+
+<div class="contenedor">
+
+  <div class="seccion">
+    <div class="seccion-titulo"><span>👤</span> Datos del Cliente</div>
+
+    <div class="campo">
+      <label>Nombre del Cliente</label>
+      <input type="text" id="inputCliente" placeholder="Ej: Juan García López">
+    </div>
+
+    <div class="campo">
+      <label>Calle y Número</label>
+      <input type="text" id="inputCalle" placeholder="Ej: Av. Hidalgo #123">
+    </div>
+
+    <div class="fila-2">
+      <div class="campo">
+        <label>Colonia</label>
+        <input type="text" id="inputColonia" placeholder="Las Reynas">
+      </div>
+      <div class="campo">
+        <label>Ciudad</label>
+        <input type="text" id="inputCiudad" placeholder="Irapuato">
+      </div>
+    </div>
+
+    <div class="fila-2">
+      <div class="campo">
+        <label>Código Postal</label>
+        <input type="text" id="inputCP" placeholder="36590" maxlength="5" inputmode="numeric">
+      </div>
+      <div class="campo">
+        <label>Teléfono</label>
+        <input type="tel" id="inputTelefono" placeholder="(462) 123-4567">
+      </div>
+    </div>
+
+    <div class="campo">
+      <label>N° de Cuenta (opcional)</label>
+      <input type="text" id="inputCuenta" placeholder="Ej: AM-001">
+    </div>
+  </div>
+
+  <div class="seccion">
+    <div class="seccion-titulo"><span>🔧</span> Detalle del Servicio</div>
+
+    <div class="campo">
+      <label>Concepto de Cobro</label>
+      <input type="text" id="inputConcepto" placeholder="Ej: Instalación de cámara, mantenimiento...">
+    </div>
+
+    <div class="fila-2">
+      <div class="campo">
+        <label>Costo del Servicio ($)</label>
+        <input type="number" id="inputCosto" placeholder="0.00" min="0" step="0.01" inputmode="decimal">
+      </div>
+      <div class="campo">
+        <label>Cargo Adicional ($)</label>
+        <input type="number" id="inputAdicional" placeholder="0.00" min="0" step="0.01" inputmode="decimal">
+      </div>
+    </div>
+
+    <div class="total-box">
+      <span class="etiqueta">Total a Pagar</span>
+      <span class="monto" id="totalPreview">$0.00</span>
+    </div>
+  </div>
+
+  <p class="nota">💡 El recibo se abrirá para capturar firmas antes de generar el PDF</p>
+</div>
+
+<button class="btn-generar" onclick="generarRecibo()">→ Generar Recibo</button>
+
+<script>
+  // Auto-fill ciudad si está vacía
+  document.getElementById('inputCiudad').placeholder = 'Irapuato';
+
+  // Calcular total en tiempo real
+  function calcularTotal() {
+    const costo = parseFloat(document.getElementById('inputCosto').value) || 0;
+    const adicional = parseFloat(document.getElementById('inputAdicional').value) || 0;
+    const total = costo + adicional;
+    document.getElementById('totalPreview').textContent = '$' + total.toFixed(2);
+  }
+  document.getElementById('inputCosto').addEventListener('input', calcularTotal);
+  document.getElementById('inputAdicional').addEventListener('input', calcularTotal);
+
+  function generarRecibo() {
+    const cliente = document.getElementById('inputCliente').value.trim();
+    const concepto = document.getElementById('inputConcepto').value.trim();
+    
+    if (!cliente) {
+      alert('⚠️ Por favor ingresa el nombre del cliente.');
+      document.getElementById('inputCliente').focus();
+      return;
+    }
+    if (!concepto) {
+      alert('⚠️ Por favor ingresa el concepto del servicio.');
+      document.getElementById('inputConcepto').focus();
+      return;
+    }
+
+    localStorage.setItem('cliente', cliente);
+    localStorage.setItem('calle', document.getElementById('inputCalle').value);
+    localStorage.setItem('colonia', document.getElementById('inputColonia').value);
+    localStorage.setItem('ciudad', document.getElementById('inputCiudad').value || 'Irapuato');
+    localStorage.setItem('cp', document.getElementById('inputCP').value);
+    localStorage.setItem('telefono', document.getElementById('inputTelefono').value);
+    localStorage.setItem('cuenta', document.getElementById('inputCuenta').value);
+    localStorage.setItem('concepto', concepto);
+    localStorage.setItem('costo', document.getElementById('inputCosto').value || '0');
+    localStorage.setItem('adicional', document.getElementById('inputAdicional').value || '0');
+
+    window.location.href = 'index.html';
+  }
+</script>
+</body>
+</html>
