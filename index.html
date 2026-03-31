@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <script>
+// Verificar login
+if(localStorage.getItem("logueado") !== "true"){
+    window.location.href = "login.html";
+}
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Recibo — Alerta Máxima</title>
@@ -534,6 +540,7 @@ body {
   <button class="btn-accion btn-whatsapp" onclick="generarPDF()">📲 WhatsApp</button>
   <!--<button class="btn-accion btn-whatsapp" onclick="compartirWhatsApp()">📲 WhatsApp</button>-->
   <button class="btn-accion btn-nuevo" onclick="nuevoRecibo()">+ Nuevo</button>
+  <button onclick="logout()" class="btn-accion btn-cerrar-sesion">Cerrar sesión</button>
 </div>
 
 <!-- RECIBO -->
@@ -920,6 +927,14 @@ function mostrarToast(msg) {
   t.classList.add('visible');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('visible'), 2500);
+}
+
+function logout(){
+
+localStorage.removeItem("logueado");
+
+window.location.href = "login.html";
+
 }
 </script>
 </body>
